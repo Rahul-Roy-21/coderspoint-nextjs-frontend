@@ -13,7 +13,7 @@ export default function Home(props) {
 
       <Jumbotron />
 
-      <main className="container mt-5">
+      <main className="container my-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {props.topics.map((topic) => {
             return (
