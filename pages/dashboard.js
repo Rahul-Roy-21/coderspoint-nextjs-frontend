@@ -9,8 +9,8 @@ const Dashboard = () => {
   console.log("Dashboard: ", user, strapiUser);
   return (
     <NFWrapper>
-      <div className="my-3 vh-100">
-        {strapiUser ? (
+      <div className="m-3 vh-100">
+        {user && strapiUser ? (
           <>
             <h1>
               Welcome{" "}

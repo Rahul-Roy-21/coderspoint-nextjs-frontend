@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { IoMdLogOut } from "react-icons/io";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, strapiUser, logout } = useAuth();
   const router = useRouter();
 
   return (
@@ -48,14 +48,14 @@ const Navbar = () => {
             </li>
 
             {user ? (
-              <li className="nav-item dropdown">
+              <li className="nav-item mx-2 dropdown">
                 <a
-                  className="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle fw-bold"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   <>
-                    <FaUserCircle /> {user.email}
+                    <FaUserCircle /> {strapiUser.user.username || user.email}
                   </>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-end">
@@ -64,19 +64,14 @@ const Navbar = () => {
                       My Dashboard
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      href="#"
-                      onClick={() => {
-                        logout();
-                        router.push("/login");
-                      }}
-                    >
-                      <a>
-                        Logout
-                        <IoMdLogOut />
-                      </a>
+                  <li
+                    onClick={() => {
+                      logout();
+                      router.push("/login");
+                    }}
+                  >
+                    <Link className="dropdown-item" href="#">
+                      Logout
                     </Link>
                   </li>
                 </ul>

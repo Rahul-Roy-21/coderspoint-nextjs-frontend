@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { loginCMS } from "../config/cmsAuth";
 import Link from "next/link";
+import { notifyError, notifySuccess } from "../config/toastFunctions";
 
 const Login = () => {
   const router = useRouter();
@@ -19,9 +20,13 @@ const Login = () => {
       // console.log("Login SuccessFul !!", respData);
       // console.log("Before Login: ", user);
       setStrapiUser(respData);
-      router.push("/dashboard");
-    } catch (err) {
-      console.log(err);
+      notifySuccess("Welcome Back !!");
+      setTimeout(() => {
+        // alert("Welcome Back !!");
+        router.push("/dashboard");
+      }, 2000);
+    } catch (error) {
+      notifyError(error.code);
     }
   };
 

@@ -4,6 +4,9 @@ import Script from "next/script";
 import Head from "next/head";
 import { AuthContextProvider } from "../context/AuthContext";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -18,6 +21,7 @@ function MyApp({ Component, pageProps }) {
       />
       <AuthContextProvider>
         <Component {...pageProps} />
+        <ToastContainer />
       </AuthContextProvider>
     </>
   );

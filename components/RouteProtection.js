@@ -7,7 +7,7 @@ const RouteProtection = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && router.pathname === "/dashboard") {
       console.log("Cannot access Dashboard");
       router.push("/login");
     }

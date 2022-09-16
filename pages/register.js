@@ -3,6 +3,11 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { firestoreAddJWT, loginCMS, registerCMS } from "../config/cmsAuth";
 import { useAuth } from "../context/AuthContext";
+import {
+  notifyError,
+  notifySuccess,
+  notifyWarning,
+} from "../config/toastFunctions";
 
 const Register = () => {
   const { user, signup, setStrapiUser } = useAuth();
@@ -30,9 +35,27 @@ const Register = () => {
 
       firestoreAddJWT(fbResp.user.uid, respData.jwt, respData.user);
 
-      router.push("/dashboard");
-    } catch (err) {
-      console.log(err);
+      notifySuccess("Registration Successful !!");
+      notifySuccess("Logging In... !!");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 2000);
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          notifyError("Email is Invalid !!");
+          break;
+        case "auth/weak-password":
+          notifyWarning("Password should be at least 6 characters");
+          break;
+        case "auth/email-already-in-use":
+          notifyError("Email Already Taken !!");
+          break;
+
+        default:
+          notifyError(error.code);
+          break;
+      }
     }
   };
 

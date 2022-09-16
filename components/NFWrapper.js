@@ -6,11 +6,11 @@ import RouteProtection from "./RouteProtection";
 const NFWrapper = ({ children }) => {
   return (
     <>
-      {/* <RouteProtection> */}
-      <Navbar />
-      {children}
-      <Footer />
-      {/* </RouteProtection> */}
+      <RouteProtection>
+        <Navbar />
+        {children}
+        <Footer />
+      </RouteProtection>
     </>
   );
 };

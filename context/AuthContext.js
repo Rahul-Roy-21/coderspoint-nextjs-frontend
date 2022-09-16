@@ -8,6 +8,7 @@ import {
 import { auth } from "../config/firebase";
 import Loader from "../components/Loader";
 import { firestoreGetJWT } from "../config/cmsAuth";
+import { notifyError } from "../config/toastFunctions";
 
 const AuthContext = createContext([]);
 
@@ -67,8 +68,11 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    setUser(null);
-    await signOut(auth);
+    notifyError("Logging out...");
+    setTimeout(() => {
+      setUser(null);
+      signOut(auth);
+    }, 2000);
   };
 
   return (
