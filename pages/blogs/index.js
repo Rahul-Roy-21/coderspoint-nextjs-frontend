@@ -8,6 +8,7 @@ import {
   GET_ALL_TOPIC_NAMES,
 } from "../../graphql/queries";
 import Head from "next/head";
+import NFWrapper from "../../components/NFWrapper";
 
 const AllBlogsPage = ({
   blog_posts,
@@ -25,7 +26,7 @@ const AllBlogsPage = ({
   // console.log("Topic: ", urlTopic);
 
   return (
-    <>
+    <NFWrapper>
       <Head>
         <title>CodersPoint | {urlTopic ? urlTopic : "All"} Blogs</title>
       </Head>
@@ -89,7 +90,7 @@ const AllBlogsPage = ({
           </div>
         </div>
       </main>
-    </>
+    </NFWrapper>
   );
 };
 

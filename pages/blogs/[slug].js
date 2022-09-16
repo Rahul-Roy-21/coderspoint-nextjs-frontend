@@ -1,18 +1,17 @@
 import client from "../../utils/apollo-client";
 import React from "react";
 import { GET_ALL_SLUGS, GET_BLOGPOST_BY_SLUG } from "../../graphql/queries";
-// import { serialize } from "next-mdx-remote/serialize";
-// import { MDXRemote } from "next-mdx-remote";
 
 import Image from "next/image";
 import matter from "gray-matter";
 import { marked } from "marked";
 import Head from "next/head";
 import Comment from "../../components/Comment";
+import NFWrapper from "../../components/NFWrapper";
 
 const BlogPost = ({ blog }) => {
   return (
-    <>
+    <NFWrapper>
       <Head>
         <title>CodersPoint | {blog.title}</title>
       </Head>
@@ -43,7 +42,7 @@ const BlogPost = ({ blog }) => {
       <div className="p-1 mx-auto">
         <Comment />
       </div>
-    </>
+    </NFWrapper>
   );
 };
 

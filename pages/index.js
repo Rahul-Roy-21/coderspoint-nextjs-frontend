@@ -3,16 +3,16 @@ import Head from "next/head";
 import Card from "../components/Card";
 import Jumbotron from "../components/Jumbotron";
 import { GET_ALL_TOPICS } from "../graphql/queries";
+import NFWrapper from "../components/NFWrapper";
 
 export default function Home(props) {
   return (
-    <>
+    <NFWrapper>
       <Head>
         <title>CodersPoint-Blog</title>
       </Head>
 
       <Jumbotron />
-
       <main className="container my-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {props.topics.map((topic) => {
@@ -24,7 +24,7 @@ export default function Home(props) {
           })}
         </div>
       </main>
-    </>
+    </NFWrapper>
   );
 }
 

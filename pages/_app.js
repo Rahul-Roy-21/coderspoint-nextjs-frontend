@@ -1,9 +1,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
-import Navbar from "../components/Navbar";
 import Script from "next/script";
-import Footer from "../components/Footer";
 import Head from "next/head";
+import { AuthContextProvider } from "../context/AuthContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,9 +16,9 @@ function MyApp({ Component, pageProps }) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"
       />
-      <Navbar />
-      <Component {...pageProps} />
-      <Footer />
+      <AuthContextProvider>
+        <Component {...pageProps} />
+      </AuthContextProvider>
     </>
   );
 }
