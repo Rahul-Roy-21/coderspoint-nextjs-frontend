@@ -55,7 +55,8 @@ const Navbar = () => {
                   aria-expanded="false"
                 >
                   <>
-                    <FaUserCircle /> {strapiUser.user.username || user.email}
+                    <FaUserCircle />{" "}
+                    {(strapiUser && strapiUser.user.username) || user.email}
                   </>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-end">

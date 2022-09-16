@@ -3,8 +3,50 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaMapMarkedAlt, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import NFWrapper from "../components/NFWrapper";
+import { useState } from "react";
+import { postContactUs } from "../utils/cmsApis";
+import { notifyError, notifySuccess } from "../config/toastFunctions";
 
 const ContactUs = () => {
+  const [data, setData] = useState({});
+
+  function handleInputs(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
+    console.log("Input: ", data);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    for (const [key, value] of Object.entries(data)) {
+      if (value === "") {
+        delete data[key];
+      }
+    }
+    console.log("Submitted: ", data);
+
+    let resp = null;
+    try {
+      resp = await postContactUs(data);
+      console.log("Resp: ", resp, !resp);
+    } catch (error) {
+      console.log(error);
+      if ("code" in error) {
+        notifyError(error.code);
+      } else {
+        error.errorList.forEach((msg) => {
+          notifyError(msg);
+        });
+      }
+      return;
+    }
+
+    if (!resp) {
+      notifySuccess("Message Sent Succesfully !!");
+      setData({});
+    }
+  };
+
   return (
     <NFWrapper>
       <div className="container my-3 px-5 contact-form">
@@ -23,13 +65,7 @@ const ContactUs = () => {
           <div className="row">
             {/*Grid column*/}
             <div className="col-md-9 mb-md-0 mb-5">
-              <form
-                id="contact-form"
-                name="contact-form"
-                action="mail.php"
-                method="POST"
-              >
-                {/*Grid row*/}
+              <form id="contact-form" onSubmit={handleSubmit}>
                 <div className="row">
                   {/*Grid column*/}
                   <div className="col-md-6">
@@ -39,6 +75,8 @@ const ContactUs = () => {
                         id="name"
                         name="name"
                         className="form-control"
+                        onChange={handleInputs}
+                        value={"name" in data ? data.name : ""}
                       />
                       <label htmlFor="name" className="">
                         Your name
@@ -50,10 +88,12 @@ const ContactUs = () => {
                   <div className="col-md-6">
                     <div className="md-form mb-0">
                       <input
-                        type="text"
+                        type="email"
                         id="email"
                         name="email"
                         className="form-control"
+                        onChange={handleInputs}
+                        value={"email" in data ? data.email : ""}
                       />
                       <label htmlFor="email" className="">
                         Your email
@@ -62,8 +102,6 @@ const ContactUs = () => {
                   </div>
                   {/*Grid column*/}
                 </div>
-                {/*Grid row*/}
-                {/*Grid row*/}
                 <div className="row">
                   <div className="col-md-12">
                     <div className="md-form mb-0">
@@ -72,6 +110,8 @@ const ContactUs = () => {
                         id="subject"
                         name="subject"
                         className="form-control"
+                        onChange={handleInputs}
+                        value={"subject" in data ? data.subject : ""}
                       />
                       <label htmlFor="subject" className="">
                         Subject
@@ -79,38 +119,30 @@ const ContactUs = () => {
                     </div>
                   </div>
                 </div>
-                {/*Grid row*/}
-                {/*Grid row*/}
                 <div className="row">
-                  {/*Grid column*/}
                   <div className="col-md-12">
                     <div className="md-form">
                       <textarea
                         type="text"
                         id="message"
                         name="message"
-                        rows={2}
+                        onChange={handleInputs}
+                        rows={5}
                         className="form-control md-textarea"
                         defaultValue={""}
+                        value={"message" in data ? data.message : ""}
                       />
                       <label htmlFor="message">Your message</label>
                     </div>
                   </div>
                 </div>
-                {/*Grid row*/}
+                <div className="text-center text-md-left">
+                  <button type="submit" className="btn btn-primary">
+                    Submit Form
+                  </button>
+                </div>
               </form>
-              <div className="text-center text-md-left">
-                <a
-                  className="btn btn-primary"
-                  onClick="document.getElementById('contact-form').submit();"
-                >
-                  Send
-                </a>
-              </div>
-              <div className="status" />
             </div>
-            {/*Grid column*/}
-            {/*Grid column*/}
             <div className="col-md-3 text-center">
               <ul className="list-unstyled mb-0">
                 <li>

@@ -12,11 +12,10 @@ const Dashboard = () => {
       <div className="m-3 vh-100">
         {user && strapiUser ? (
           <>
-            <h1>
+            <h2>
               Welcome{" "}
               {user ? strapiUser.user.username || user.email : "Anonymous-User"}
-              !!
-            </h1>
+            </h2>
             <p>Email: {user.email}</p>
             <p>Strapi-ID: {strapiUser.user.id}</p>
             <p>JWT: {strapiUser.jwt}</p>
